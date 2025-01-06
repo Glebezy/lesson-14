@@ -11,11 +11,8 @@
   <code><img width="5%" title="Selenium" src="images/logo/selenium.png"></code>
   <code><img width="5%" title="GitHub" src="images/logo/github.png"></code>
   <code><img width="5%" title="Jenkins" src="images/logo/jenkins.png"></code>
-  <code><img width="5%" title="Docker" src="images/logo/docker.png"></code>
   <code><img width="5%" title="Selenoid" src="images/logo/selenoid.png"></code>
   <code><img width="5%" title="Allure Report" src="images/logo/allure_report.png"></code>
-  <code><img width="5%" title="Allure TestOps" src="images/logo/allure_testops.png"></code>
-  <code><img width="5%" title="Jira" src="images/logo/jira.png"></code>
   <code><img width="5%" title="Telegram" src="images/logo/tg.png"></code>
 </p>
 
@@ -49,19 +46,17 @@
 ##### После прохождения тестов, результаты можно посмотреть в Allure отчете, где так же содержится ссылка на Jenkins
 ![This is an image](images/screenshots/allure_dashboard.png)
 
-##### Во вкладке Graphs можно посмотреть графики о прохождении тестов, по их приоритезации, по времени прохождения и др.
+##### Во вкладке Graphs можно посмотреть графики о прохождении тестов, по их приоритизации, по времени прохождения и др.
 ![This is an image](images/screenshots/allure_graphs.png)
 
-##### Во вкладке Suites находятся собранные тест кейсы, у которых описаны шаги и приложены логи, скриншот и видео о прохождении теста
+##### Во вкладке Behaviors находятся собранные тест кейсы, у которых описаны шаги и приложены логи, скриншот и видео о прохождении теста
 ![This is an image](images/screenshots/allure_suites.png)
 
-##### Видео прохождение теста
-![This is an image](images/screenshots/tests_ui.gif)
 
 
 <!-- Telegram -->
 
 ### <img width="3%" title="Telegram" src="images/logo/tg.png"> Интеграция с Telegram
-##### После прохождения тестов, в Telegram bot приходит сообщение с графиком и небольшой информацией о тестах.
+##### После прохождения тестов, в Telegram-бот приходит сообщение с графиком и небольшой информацией о тестах.
 
 ![This is an image](images/screenshots/tg_bot.png)
