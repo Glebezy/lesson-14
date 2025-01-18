@@ -1,6 +1,7 @@
 import allure
 import pytest
-from models.users import User
+
+from models.user import User
 from pages.registration_page import RegistrationPage
 
 

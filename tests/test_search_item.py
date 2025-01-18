@@ -1,7 +1,8 @@
 import allure
 import pytest
+
+from models.book import Book
 from pages.store_page import StorePage
-from models.books import Book
 
 
 @pytest.fixture
