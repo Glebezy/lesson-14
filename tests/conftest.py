@@ -1,43 +1,34 @@
-import os
-
+import allure_commons
 import pytest
-from dotenv import load_dotenv
+import selene
 from selene import browser
-from selenium.webdriver.chrome.options import Options
 from selenium import webdriver
-from utils import attach
+from selenium.webdriver.chrome.options import Options
+
+from utils import attach, selenoid
+
+
+def pytest_addoption(parser):
+    parser.addoption('--context', action='store', default='local')
 
 
 @pytest.fixture(scope="function")
 def setup_browser(request):
-    load_dotenv()
-
-    selenoid_login = os.getenv('SELENOID_LOGIN')
-    selenoid_password = os.getenv('SELENOID_PASS')
-    selenoid_url = os.getenv('SELENOID_URL')
+    context = request.config.getoption('--context')
 
     browser.config.window_height = 1080
     browser.config.window_width = 1920
     browser.config.base_url = 'https://demoqa.com'
 
     options = Options()
-
-    selenoid_capabilities = {
-        "browserName": "chrome",
-        "browserVersion": "125.0",
-        "selenoid:options": {
-            "enableVNC": True,
-            "enableVideo": True
-        }
-    }
-    options.capabilities.update(selenoid_capabilities)
     options.page_load_strategy = 'eager'
 
-    driver = webdriver.Remote(
-        command_executor=f"https://{selenoid_login}:{selenoid_password}@{selenoid_url}/wd/hub",
-        options=options)
+    browser.config._wait_decorator = selene.support._logging.wait_with(
+        context=allure_commons._allure.StepContext
+    )
 
-    browser.config.driver = driver
+    if context == 'selenoid':
+        selenoid.setup(options, webdriver, browser)
 
     yield
 
