@@ -3,6 +3,7 @@
 <!-- Технологии -->
 
 ### Используемые технологии
+
 <p  align="center">
   <code><img width="5%" title="Pycharm" src="images/logo/pycharm.png"></code>
   <code><img width="5%" title="Python" src="images/logo/python.png"></code>
@@ -27,7 +28,7 @@
 * Поиск книги по заголовку и проверка наличия в списке
 * Поиск книги по автору и проверка наличия в списке
 * Поиск книги по издателю и проверка наличия в списке
-* Поиск невалидной книги и отображение пустого списка 
+* Поиск невалидной книги и отображение пустого списка
 
 ### Чем проверяем
 
@@ -35,7 +36,6 @@
 * **Pytest** для запуска тестов
 * **Selenoid** для проведения тестов в облаке
 * **Allure** для формирования отчетов и логирования шагов тестов
-        
 
 <!-- Jenkins -->
 
@@ -44,6 +44,7 @@
 ### [Job](https://jenkins.autotests.cloud/job/16-glebezy-python-unit14/)
 
 ##### При нажатии на "Build Now" начнется сборка тестов и их прохождение, через виртуальную машину в Selenide.
+
 ![This is an image](images/screenshots/jenkins.png)
 
 
@@ -51,16 +52,18 @@
 
 ### <img width="3%" title="Allure Report" src="images/logo/allure_report.png"> Allure report
 
-###
-[Отчёт](https://jenkins.autotests.cloud/job/16-glebezy-python-unit14/allure)
+### [Отчёт](https://jenkins.autotests.cloud/job/16-glebezy-python-unit14/allure)
 
 ##### После прохождения тестов, результаты можно посмотреть в Allure отчете, где так же содержится ссылка на Jenkins
+
 ![This is an image](images/screenshots/allure_dashboard.png)
 
 ##### Во вкладке Graphs можно посмотреть графики о прохождении тестов, по их приоритизации, по времени прохождения и др.
+
 ![This is an image](images/screenshots/allure_graphs.png)
 
 ##### Во вкладке Behaviors находятся собранные тест кейсы, у которых описаны шаги и приложены логи, скриншот и видео о прохождении теста
+
 ![This is an image](images/screenshots/allure_suites.png)
 
 
@@ -68,6 +71,7 @@
 <!-- Telegram -->
 
 ### <img width="3%" title="Telegram" src="images/logo/tg.png"> Интеграция с Telegram
+
 ##### После прохождения тестов, в Telegram-бот приходит сообщение с графиком и небольшой информацией о тестах.
 
 ![This is an image](images/screenshots/tg_bot.png)
