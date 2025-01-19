@@ -1,6 +1,9 @@
 import os
 
+from allure import step
 from selene import browser, be, have
+
+from pages.page import open_page
 
 CURRENT_FILE = os.path.abspath(__file__)
 DIRECTORY = os.path.dirname(CURRENT_FILE)
@@ -8,10 +11,11 @@ FILE = os.path.join(DIRECTORY, "..", "resources")
 
 
 class RegistrationPage:
+
     def open(self):
-        browser.open('/automation-practice-form')
-        browser.driver.execute_script("$('#fixedban').remove()")
-        browser.driver.execute_script("$('footer').remove()")
+        with step("open browser"):
+            open_page('/automation-practice-form')
+        return self
 
     def fill_first_name(self, first_name):
         browser.element('[id="firstName"]').clear().type(first_name)
@@ -65,59 +69,66 @@ class RegistrationPage:
         browser.element('[id="city"]').click()
         browser.element(f'//*[contains(text(), "{address.split()[-1]}")]').click()
 
-    def submit(self):
-        browser.element('[id="submit"]').click()
+    def submit_form(self):
+        with step("submit form"):
+            browser.element('[id="submit"]').click()
+            return self
 
     def register(self, user):
-        self.fill_first_name(user.first_name)
-        self.fill_last_name(user.last_name)
-        if user.email:
-            self.fill_email(user.email)
-        self.choose_gender(user.gender)
-        self.fill_phone(user.phone_number)
-        if user.date_of_birth:
-            self.choose_date_of_birth(user.date_of_birth)
-        if user.subjects:
-            self.fill_subjects(user.subjects)
-        if user.hobbies:
-            self.choose_hobbies(user.hobbies)
-        if user.picture:
-            self.upload_picture(user.picture)
-        if user.address:
-            self.fill_address(user.address)
-        self.submit()
+        with step("Fill form"):
+            self.fill_first_name(user.first_name)
+            self.fill_last_name(user.last_name)
+            if user.email:
+                self.fill_email(user.email)
+            self.choose_gender(user.gender)
+            self.fill_phone(user.phone_number)
+            if user.date_of_birth:
+                self.choose_date_of_birth(user.date_of_birth)
+            if user.subjects:
+                self.fill_subjects(user.subjects)
+            if user.hobbies:
+                self.choose_hobbies(user.hobbies)
+            if user.picture:
+                self.upload_picture(user.picture)
+            if user.address:
+                self.fill_address(user.address)
+        self.submit_form()
+
+        return self
 
     def should_have_registered(self, user):
-        browser.element("//td[contains(text(), 'Student Name')]/following-sibling::td").should(
-            have.text(user.first_name + ' ' + user.last_name))
-        if user.email:
-            browser.element("//td[contains(text(), 'Student Email')]/following-sibling::td").should(
-                have.text(user.email))
-        browser.element("//td[contains(text(), 'Gender')]/following-sibling::td").should(
-            have.text(user.gender))
-        browser.element("//td[contains(text(), 'Mobile')]/following-sibling::td").should(
-            have.text(user.phone_number))
+        with step("Check registration"):
+            browser.element("//td[contains(text(), 'Student Name')]/following-sibling::td").should(
+                have.text(user.first_name + ' ' + user.last_name))
+            if user.email:
+                browser.element("//td[contains(text(), 'Student Email')]/following-sibling::td").should(
+                    have.text(user.email))
+            browser.element("//td[contains(text(), 'Gender')]/following-sibling::td").should(
+                have.text(user.gender))
+            browser.element("//td[contains(text(), 'Mobile')]/following-sibling::td").should(
+                have.text(user.phone_number))
 
-        if user.date_of_birth:
-            browser.element("//td[contains(text(), 'Date of Birth')]/following-sibling::td").should(
-                have.text(user.date_of_birth))
-        if user.subjects:
-            browser.element("//td[contains(text(), 'Subjects')]/following-sibling::td").should(
-                have.text(', '.join(user.subjects)))
-        if user.hobbies:
-            browser.element("//td[contains(text(), 'Hobbies')]/following-sibling::td").should(
-                have.text(', '.join(user.hobbies)))
-        if user.picture:
-            browser.element("//td[contains(text(), 'Picture')]/following-sibling::td").should(
-                have.text(user.picture))
-        if user.address:
-            browser.element("//td[contains(text(), 'Address')]/following-sibling::td").should(
-                have.text(user.address.split(', ')[0]))
-            browser.element("//td[contains(text(), 'State and City')]/following-sibling::td").should(
-                have.text(user.address.split(', ')[1]))
+            if user.date_of_birth:
+                browser.element("//td[contains(text(), 'Date of Birth')]/following-sibling::td").should(
+                    have.text(user.date_of_birth))
+            if user.subjects:
+                browser.element("//td[contains(text(), 'Subjects')]/following-sibling::td").should(
+                    have.text(', '.join(user.subjects)))
+            if user.hobbies:
+                browser.element("//td[contains(text(), 'Hobbies')]/following-sibling::td").should(
+                    have.text(', '.join(user.hobbies)))
+            if user.picture:
+                browser.element("//td[contains(text(), 'Picture')]/following-sibling::td").should(
+                    have.text(user.picture))
+            if user.address:
+                browser.element("//td[contains(text(), 'Address')]/following-sibling::td").should(
+                    have.text(user.address.split(', ')[0]))
+                browser.element("//td[contains(text(), 'State and City')]/following-sibling::td").should(
+                    have.text(user.address.split(', ')[1]))
 
     def should_validation_visible(self):
-        browser.element('#firstName').should(have.css_property('border-color', value='rgb(220, 53, 69)'))
-        browser.element('#lastName').should(have.css_property('border-color', value='rgb(220, 53, 69)'))
-        browser.element('[for^="gender-radio"]').should(have.css_property('border-color', value='rgb(220, 53, 69)'))
-        browser.element('#userNumber').should(have.css_property('border-color', value='rgb(220, 53, 69)'))
+        with step("check validation"):
+            browser.element('#firstName').should(have.css_property('border-color', value='rgb(220, 53, 69)'))
+            browser.element('#lastName').should(have.css_property('border-color', value='rgb(220, 53, 69)'))
+            browser.element('[for^="gender-radio"]').should(have.css_property('border-color', value='rgb(220, 53, 69)'))
+            browser.element('#userNumber').should(have.css_property('border-color', value='rgb(220, 53, 69)'))
